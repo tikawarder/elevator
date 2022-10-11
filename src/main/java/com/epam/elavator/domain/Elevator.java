@@ -1,7 +1,7 @@
 package com.epam.elavator.domain;
 
 import com.epam.elavator.domain.report.ReportMovement;
-import com.epam.elavator.domain.report.State;
+import com.epam.elavator.domain.report.Operation;
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @Value
@@ -16,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class Elevator {
     ReportMovement report;
-    List<ReportMovement> reports;
+    List<ReportMovement> reports = new ArrayList<>();
 
     @Min(1)
     @Max(10)
@@ -27,40 +28,41 @@ public class Elevator {
 
     public void logMovements(){ //handle out of capacity cases
         int from = 0;
-        log.info("Elevator in standby at {} level.", from);
-        addToReports(report.builder()
+        reports.add(report.builder()
                             .from(from)
-                            .State(State.STANDBY)
+                            .State(Operation.STANDBY)
                             .build());
+        log.info("Elevator in {} at {} level.", Operation.STANDBY, from);
+
         for(Movement movement: movements){
-            addToReports(report.builder()
+            reports.add(report.builder()
                                .from(from)
                                .to(movement.getFrom())
-                               .loadPeople(movement.getPeople())
-                               .State(getState(from, movement.getFrom()))
+                               .State(Operation.MOVING)
                                .build());
-            log.info("Moving to {} level",movement.getFrom());
-            log.info("Loading {} people", movement.getPeople());
-            addToReports(report.builder()
+            log.info("{} to {} level", Operation.MOVING, movement.getFrom());
+            reports.add(report.builder()
+                               .loadPeople(movement.getPeople())
+                               .State(Operation.LOAD)
+                               .build());
+            log.info("{} {} people", Operation.LOAD, movement.getPeople());
+            reports.add(report.builder()
                                .from(movement.getFrom())
                                .to(movement.getTo())
-                               .unloadPeople(movement.getPeople())
-                               .State(getState(movement.getFrom(), movement.getTo()))
+                               .State(Operation.MOVING)
                                .build());
-            log.info("Moving to {} level",movement.getTo());
-            log.info("Unloading {} people",movement.getPeople());
+            log.info("{} to {} level", Operation.MOVING, movement.getTo());
+            reports.add(report.builder()
+                               .loadPeople(movement.getPeople())
+                               .State(Operation.UNLOAD)
+                               .build());
+            log.info("{} {} people", Operation.UNLOAD, movement.getPeople());
             from = movement.getTo();
         }
-        log.info("Elevator in standby");
-    }
 
-    private void addToReports(ReportMovement report){
-        reports.add(report);
-    }
-
-    private State getState (int from, int to){
-       if ((to-from)>0) return State.UP;
-       if ((to-from)<0) return State.DOWN;
-       return State.STANDBY; //think over this
+        reports.add(report.builder()
+                           .State(Operation.STANDBY)
+                           .build());
+        log.info("Elevator in {}", Operation.STANDBY);
     }
 }
