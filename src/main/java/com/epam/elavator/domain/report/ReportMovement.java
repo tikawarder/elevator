@@ -1,4 +1,4 @@
-package com.epam.elavator.domain;
+package com.epam.elavator.domain.report;
 
 import lombok.Builder;
 import lombok.Data;

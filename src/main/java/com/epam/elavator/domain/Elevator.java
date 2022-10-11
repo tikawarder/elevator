@@ -1,11 +1,10 @@
 package com.epam.elavator.domain;
 
+import com.epam.elavator.domain.report.ReportMovement;
+import com.epam.elavator.domain.report.State;
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -16,11 +15,7 @@ import java.util.List;
 @Builder
 @Slf4j
 public class Elevator {
-
-    @Autowired
     ReportMovement report;
-
-    @Autowired
     List<ReportMovement> reports;
 
     @Min(1)

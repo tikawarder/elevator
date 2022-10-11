@@ -2,6 +2,7 @@ package com.epam.elavator.services;
 
 import com.epam.elavator.domain.Elevator;
 import com.epam.elavator.domain.Movement;
+import com.epam.elavator.domain.report.ReportMovement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,16 @@ public class MovementService {
     }
 
     public boolean isMovementPresent(){ //maybe @Valid is enough
-        return elevator.getMovements().size()>0 ? true : false;
+        return elevator
+                .getMovements()
+                .size() > 0;
     }
 
     public void start(){
         elevator.logMovements();
+    }
+
+    public List<ReportMovement> getMovements(){
+        return elevator.getReports();
     }
 }

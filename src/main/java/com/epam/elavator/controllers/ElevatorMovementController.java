@@ -34,7 +34,7 @@ public class ElevatorMovementController {
         return ResponseEntity.ok("Capacity is valid");
     }
 
-    @GetMapping("/start")
+    @GetMapping("/start") //lets have more nicer start of elevator movement
     public ResponseEntity.BodyBuilder start() {
         if (service.isMovementPresent()) {
             service.start();
