@@ -3,7 +3,6 @@ package com.epam.elavator.services;
 import com.epam.elavator.domain.Elevator;
 import com.epam.elavator.domain.Movement;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +29,6 @@ public class MovementService {
     }
 
     public void start(){
-
+        elevator.logMovements();
     }
 }
