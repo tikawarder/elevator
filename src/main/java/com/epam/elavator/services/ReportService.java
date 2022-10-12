@@ -10,18 +10,19 @@ import static java.lang.Math.abs;
 @Service
 public class ReportService {
 
-    @Autowired
-    Elevator elevator;
+//    @Autowired
+//    Elevator elevator;
 
-    public int getPeopleTraveledTotal(){
-        return elevator.getReports().stream()
-                .mapToInt(ReportMovement::getUnloadPeople)
-                .sum();
-    }
-
-    public int getStoriesTraveledTotal(){
-        return elevator.getReports().stream()
-                .mapToInt(movements->abs(movements.getFrom()- movements.getTo()))
-                .sum();
-    }
+//    public int getPeopleTraveledTotal(){
+//        return elevator.getReports().stream()
+//                .mapToInt(ReportMovement::getUnloadPeople)
+//                .sum();
+//    }
+//
+//    public int getStoriesTraveledTotal(){
+//        return elevator.getReports().stream()
+//                .mapToInt(movements->abs(movements.getFrom()- movements.getTo()))
+//                .sum();
+//    }
+//
 }

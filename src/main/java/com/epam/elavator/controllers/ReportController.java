@@ -1,5 +1,6 @@
 package com.epam.elavator.controllers;
 
+import com.epam.elavator.services.ElevatorService;
 import com.epam.elavator.services.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReportController {
 
     @Autowired
-    ReportService service;
+    ElevatorService service;
 
     @GetMapping("/people")
     public ResponseEntity<Integer> getPeopleTraveled(){

@@ -1,7 +1,7 @@
 package com.epam.elavator.controllers;
 
 import com.epam.elavator.domain.report.ReportMovement;
-import com.epam.elavator.services.MovementService;
+import com.epam.elavator.services.ElevatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 public class DatabaseConnectionController {
 
     @Autowired
-    MovementService service;
+    ElevatorService service;
 
     @GetMapping ("/getmovements")
     public ResponseEntity<List<ReportMovement>> getMovements(){

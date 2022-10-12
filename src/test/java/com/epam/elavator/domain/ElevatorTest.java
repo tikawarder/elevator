@@ -10,6 +10,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ElevatorTest {
+    public static final int EXCEEDED_CAPACITY = 1;
+    public static final int CAPACITY = 5;
     private Elevator underTest;
     private List<ReportMovement> reports;
 
@@ -18,26 +20,39 @@ class ElevatorTest {
     }
 
     @Test
-    void testLogMovementShouldAddEveryReportToReports(){
+    void testLogMovementShouldContainsEveryReportMovement(){
         //given
-        loadElevator();
+        loadElevator(CAPACITY);
         //when
         loadReports();
         underTest.logMovements();
         //then
-//        assertEquals(reports, underTest.getReports());
+        assertTrue(reports.containsAll(underTest.getReports()));
     }
 
-    private void loadElevator(){
+    @Test
+    void testLogMovementShouldContainOnlyStandbyOperationWhenCapacityIsExceeded(){
+        //given
+        loadElevator(EXCEEDED_CAPACITY);
+        //when
+        underTest.logMovements();
+        reports = underTest.getReports();
+        //then
+        for (ReportMovement movement: reports){
+            assertEquals(Operation.STANDBY, movement.getState());
+        }
+    }
+
+    private void loadElevator(int capacity){
         Movement move = Movement.builder()
-                .from(1)
+                .from(EXCEEDED_CAPACITY)
                 .to(3)
                 .people(2)
                 .build();
         List<Movement> movements = List.of(move);
         underTest = Elevator.builder()
-                .capacity(5)
                 .movements(movements)
+                .capacity(capacity)
                 .build();
     }
 
