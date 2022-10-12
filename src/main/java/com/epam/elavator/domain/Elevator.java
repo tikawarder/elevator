@@ -15,9 +15,7 @@ import java.util.List;
 @Getter
 @Builder
 @Slf4j
-//@Component
 public class Elevator {
-//    private final static int DEFAULT_CAPACITY = 5;
     List<ReportMovement> reports;
 
     @Min(1)
@@ -27,7 +25,7 @@ public class Elevator {
     @NotEmpty(message = "At least 1 movement has to be")
     List<@Valid Movement> movements;
 
-    public void logMovements(){ //handle out of capacity cases
+    public void logMovements(){
         reports = new ArrayList<>();
         int from = 0;
         reports.add(ReportMovement.builder()

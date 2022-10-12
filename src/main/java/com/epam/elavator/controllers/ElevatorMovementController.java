@@ -3,11 +3,14 @@ package com.epam.elavator.controllers;
 import com.epam.elavator.domain.Movement;
 import com.epam.elavator.services.ElevatorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @RestController
@@ -19,8 +22,8 @@ public class ElevatorMovementController {
     ElevatorService service;
 
     @PostMapping("/movements")
-    public ResponseEntity<String> getMovements(@Valid @RequestBody List<Movement> movements) {
+    public ResponseEntity.BodyBuilder getMovements(@Valid @RequestBody @NotEmpty List<Movement> movements) {
         service.startElevator(movements);
-        return ResponseEntity.ok("Movement is valid"); //what to do if validation says not valid?
+        return ResponseEntity.status(HttpStatus.ACCEPTED);
     }
 }
