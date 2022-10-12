@@ -4,11 +4,7 @@ import com.epam.elavator.domain.report.ReportMovement;
 import com.epam.elavator.domain.report.Operation;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -22,7 +18,7 @@ import java.util.List;
 //@Component
 public class Elevator {
 //    private final static int DEFAULT_CAPACITY = 5;
-    List<ReportMovement> reports = new ArrayList<>();
+    List<ReportMovement> reports;
 
     @Min(1)
     @Max(10)
@@ -32,6 +28,7 @@ public class Elevator {
     List<@Valid Movement> movements;
 
     public void logMovements(){ //handle out of capacity cases
+        reports = new ArrayList<>();
         int from = 0;
         reports.add(ReportMovement.builder()
                             .from(from)

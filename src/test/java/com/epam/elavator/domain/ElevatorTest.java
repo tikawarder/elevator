@@ -45,7 +45,7 @@ class ElevatorTest {
 
     private void loadElevator(int capacity){
         Movement move = Movement.builder()
-                .from(EXCEEDED_CAPACITY)
+                .from(1)
                 .to(3)
                 .people(2)
                 .build();

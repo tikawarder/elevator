@@ -1,6 +1,7 @@
 package com.epam.elavator.services;
 
 import com.epam.elavator.domain.Elevator;
+import com.epam.elavator.domain.Movement;
 import com.epam.elavator.domain.report.Operation;
 import com.epam.elavator.domain.report.ReportMovement;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,18 @@ class ElevatorServiceTest {
     @BeforeEach
     void setup(){
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testStartElevatorShouldCreateNewElevatorWithMovementAndCapacityAndRunLogMovements(){
+        //given
+        List<Movement> movements = loadMovements();
+        //when
+        underTest.startElevator(movements);
+        Elevator elevator = underTest.getElevator();
+        //then
+        assertEquals(5, elevator.getCapacity());
+        assertEquals(movements, elevator.getMovements());
     }
 
     @Test
@@ -83,5 +96,14 @@ class ElevatorServiceTest {
                                                .State(Operation.STANDBY)
                                                .build();
         reports = List.of(report1, report2, report3, report4, report5, report6);
+    }
+
+    private List<Movement> loadMovements(){
+        Movement move = Movement.builder()
+                                .from(1)
+                                .to(3)
+                                .people(2)
+                                .build();
+        return List.of(move);
     }
 }

@@ -23,18 +23,4 @@ public class ElevatorMovementController {
         service.startElevator(movements);
         return ResponseEntity.ok("Movement is valid"); //what to do if validation says not valid?
     }
-
-//    @PostMapping("/capacity")
-//    public ResponseEntity<String> getCapacity(@RequestBody @Min(1) @Max(10) int capacity) {
-//        service.setCapacity(capacity);
-//        return ResponseEntity.ok("Capacity is valid");
-//    }
-
-//    @GetMapping("/start") //lets have more nicer start of elevator movement
-//    public ResponseEntity.BodyBuilder start() {
-//        if (service.isMovementPresent()) {
-//            service.start();
-//            return ResponseEntity.ok();
-//        } else return ResponseEntity.badRequest();
-//    }
 }

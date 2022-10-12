@@ -10,5 +10,5 @@ public class ReportMovement {
     int to;
     int loadPeople;
     int unloadPeople;
-    Enum State;
+    Operation State;
 }

@@ -1,7 +1,6 @@
 package com.epam.elavator.controllers;
 
 import com.epam.elavator.services.ElevatorService;
-import com.epam.elavator.services.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

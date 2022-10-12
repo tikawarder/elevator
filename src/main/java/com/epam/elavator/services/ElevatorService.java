@@ -16,8 +16,12 @@ public class ElevatorService {
     //use dependeny injection later
     private Elevator elevator;
 
+    public Elevator getElevator() {
+        return elevator;
+    }
+
     public void startElevator(List<Movement> movements){
-        this.elevator = Elevator.builder()
+        elevator = Elevator.builder()
                 .movements(movements)
                 .capacity(DEFAULT_CAPACITY)
                 .build();
